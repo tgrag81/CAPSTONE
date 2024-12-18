@@ -2,24 +2,37 @@ const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const cors = require("cors");
-
+const {Server} = require ("socket.io");
+const http = require("http");
 dotenv.config();
 const app = express();
-
-// Database Connection
+const server = http.createServer(app);
+const io= new Server(server);
 connectDB();
 
+
+//specify the frontend origin
 // Middleware uses 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin :'*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 
-// Routes to use
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+  
+
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/posts", require("./routes/post"))
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-//posting routes to use 
 
-app.use("/api/posts", require("./routes/post"));
