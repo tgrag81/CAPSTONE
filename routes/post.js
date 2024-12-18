@@ -21,9 +21,6 @@ io.on("connection", (socket) => {
 // Create a new post
 
 
-
-
-
 router.post("/", async (req, res) => {
     const { userId, content, media } = req.body;
 
