@@ -112,6 +112,7 @@ Coach Michal MidKnight
 Luis Aguilera Garcia
 Phillp Raymond
 Brandon Lopez
+Robert Jean
 
 Fork the repository.
 Create a feature branch (git checkout -b feature-name).
