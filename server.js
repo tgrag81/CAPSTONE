@@ -10,8 +10,20 @@ const server = http.createServer(app);
 const io= new Server(server);
 connectDB();
 const mongoose = require('mongoose');
-
+const WebSocket = require('ws');
 const postRoutes = require('./routes/post');
+
+
+//to fix websocket errors when closing application
+const wss = new WebSocket.Server({port:5173})
+wss.on('connection', ws => {
+    console.log('Client connected');
+    ws.on('message', message => {
+        console.log('received: %s', message);
+    });
+    ws.send('something');
+});
+console.log('WebSocket server started on port 5173');
 
 //to connect to mongoDB like from class
 
