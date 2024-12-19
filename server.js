@@ -11,10 +11,9 @@ const io= new Server(server);
 connectDB();
 const mongoose = require('mongoose');
 
-//register the route
 const postRoutes = require('./routes/post');
 
-//to connect to mongoDB
+//to connect to mongoDB like from class
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewURLParser:true,

@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
 // Get all posts
 router.get("/", async (req, res) => {
     try {
-        const posts = await Post.find()
+        const posts = await Post.find().populate("likes").populate("comments")
             .populate("userId", "username avatar") // Populate user data
             .sort({ createdAt: -1 }); // Sort by newest first
 
@@ -67,6 +67,16 @@ router.put("/:id/like", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+//Another way to toggle like/unline
+
+// Toggle like
+//if (post.likes.includes(userId)) {
+//    post.likes = post.likes.filter((id) => id.toString() !== userId);
+//} else {
+ //   post.likes.push(userId);
+//}
+
+
 
 // Add a comment to a post
 router.put("/:id/comment", async (req, res) => {
